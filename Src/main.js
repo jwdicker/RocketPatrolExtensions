@@ -1,8 +1,8 @@
 console.log("Hasa diga ebowai");
 
-let config = {
+const config = {
     type: Phaser.CANVAS,
-    width: 640,
+    width: 680,
     height: 480
 }
-let game = new Phaser.Game();
+let game = new Phaser.Game(config);
