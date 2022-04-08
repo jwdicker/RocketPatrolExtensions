@@ -2,7 +2,12 @@ console.log("Hasa diga ebowai");
 
 const config = {
     type: Phaser.CANVAS,
-    width: 680,
-    height: 480
+    width: 640,
+    height: 480,
+    scene: [Menu, Play]
 }
+
+let borderUISize = config.height / 15;
+let borderPadding = borderUISize / 3;
+
 let game = new Phaser.Game(config);
