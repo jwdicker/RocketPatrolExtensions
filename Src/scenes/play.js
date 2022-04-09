@@ -23,9 +23,9 @@ class Play extends Phaser.Scene {
 
         // Ships
         this.ships = new Array(
-            new Ship(this, 100, 120, 'spaceship', 0, 1).setOrigin(0,0),
-            new Ship(this, 200, 200, 'spaceship', 0, 1).setOrigin(0,0),
-            new Ship(this, 300, 240, 'spaceship', 0, 1).setOrigin(0,0)
+            new Ship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0,0),
+            new Ship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0),
+            new Ship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0)
         );
 
         // UI Borders
