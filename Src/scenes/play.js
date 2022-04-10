@@ -80,6 +80,10 @@ class Play extends Phaser.Scene {
     }
 
     update() {
+        if(Phaser.Input.Keyboard.JustDown(keyR)) {
+            this.scene.restart();
+        }
+
         // Movement
         this.background.tilePositionX -= 3;
 
