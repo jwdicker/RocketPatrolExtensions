@@ -65,12 +65,16 @@ class Play extends Phaser.Scene {
         }
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
 
+        // Game Over Flag
+        this.endOGame = false;
+
         // 60-second play clock
         let duration = 60000;
         scoreConfig.fixedWidth = 0;
         this.clock = this.time.delayedCall(duration, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart', scoreConfig).setOrigin(0.5);
+            this.endOGame = true;
         }, null, this);
 
     }
@@ -78,8 +82,11 @@ class Play extends Phaser.Scene {
     update() {
         // Movement
         this.background.tilePositionX -= 3;
-        this.p1Rocket.update();
-        for(let ship of this.ships){ship.update()};
+
+        if(!this.endOGame) {
+            this.p1Rocket.update();
+            for(let ship of this.ships){ship.update()};
+        }
 
         // Collision Handling
         for(let ship of this.ships) {
