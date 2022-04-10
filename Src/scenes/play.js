@@ -109,9 +109,14 @@ class Play extends Phaser.Scene {
         
         // Hide Ship
         ship.alpha = 0;
+
         // Update Score
         this.p1Score += ship.pointValue;
         this.scoreLeft.text = this.p1Score;
+
+        // Play explosion sound
+        this.sound.play("sfx_explosion");
+
         // Play explosion animation
         let boom = this.add.sprite(ship.x, ship.y, "explosion").setOrigin(0,0);
         boom.anims.play('explode');
