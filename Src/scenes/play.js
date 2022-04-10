@@ -4,10 +4,13 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("explosion", "assets/explosion.png");
+        // Images
         this.load.image("rocket", "assets/rocket.png");
         this.load.image("spaceship", "assets/spaceship.png");
         this.load.image("starfield", "assets/starfield.png");
+
+        // Explosion Animation
+        this.load.spritesheet("explosion", "assets/explosion.png", {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
     }
 
     create() {
@@ -38,11 +41,45 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0xffffff).setOrigin(0,0);
         this.add.rectangle(0, game.config.height - borderUISize, game.config.width, game.config.height, 0xffffff).setOrigin(0,0);
         this.add.rectangle(game.config.width - borderUISize, 0, game.config.width, game.config.height, 0xffffff).setOrigin(0,0);
+
+        // Animation Setup
+        this.anims.create({
+            key: "explode",
+            frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0}),
+            frameRate: 30
+        })
     }
 
     update() {
+        // Movement
         this.background.tilePositionX -= 3;
         this.p1Rocket.update();
         for(let ship of this.ships){ship.update()};
+
+        // Collision Handling
+        for(let ship of this.ships) {
+            for(let rocket of [this.p1Rocket]) {
+                if(rocket.x < ship.x + ship.width && rocket.x + rocket.width > ship.x && rocket.y < ship.y + ship.height && rocket.height + rocket.y > ship. y) {
+                    this.detonate(rocket, ship);
+                }
+            }
+        }
+    }
+
+    // Carries out the actions that go along with a rocket-ship collision
+    detonate(rocket, ship) {
+        // Reset Rocket
+        rocket.resetPos();
+        
+        // Hide Ship
+        ship.alpha = 0;
+        // Play explosion animation
+        let boom = this.add.sprite(ship.x, ship.y, "explosion").setOrigin(0,0);
+        boom.anims.play('explode');
+        boom.on("animationcomplete", () => {
+            ship.reset();
+            ship.alpha = 1;
+            boom.destroy();
+        });
     }
 }
