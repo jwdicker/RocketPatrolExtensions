@@ -136,6 +136,10 @@ class Play extends Phaser.Scene {
         this.p1Score += ship.pointValue;
         this.scoreLeft.text = this.p1Score;
 
+        // Update Time
+        // (Time added = Score * 50 (ms))
+        this.maxTime += ship.pointValue * 50;
+
         // Play explosion sound
         this.sound.play("sfx_explosion");
 
