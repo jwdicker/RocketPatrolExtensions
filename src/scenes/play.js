@@ -79,7 +79,8 @@ class Play extends Phaser.Scene {
         this.endOGame = false;
 
         // 60-second play clock
-        this.clockText = this.add.text(game.config.width / 2, borderUISize + borderPadding * 2, Math.ceil((game.settings.gameTimer - this.time.now) / 1000), gameTextConfig).setOrigin(0.5, 0);
+        this.startTime = this.time.now;
+        this.clockText = this.add.text(game.config.width / 2, borderUISize + borderPadding * 2, Math.ceil(game.settings.gameTimer / 1000), gameTextConfig).setOrigin(0.5, 0);
         this.clockText.align = 'center';
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', gameTextConfig).setOrigin(0.5);
@@ -119,7 +120,7 @@ class Play extends Phaser.Scene {
         }
 
         // Update clock
-        this.clockText.text = Math.ceil((game.settings.gameTimer - this.time.now) / 1000);
+        this.clockText.text = Math.ceil((game.settings.gameTimer - (this.time.now - this.startTime)) / 1000);
     }
 
     // Carries out the actions that go along with a rocket-ship collision
