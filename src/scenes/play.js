@@ -7,7 +7,12 @@ class Play extends Phaser.Scene {
         // Images
         this.load.image("rocket", "assets/rocket.png");
         this.load.image("spaceship", "assets/spaceship.png");
-        this.load.image("starfield", "assets/backgrounds/starfield.png");
+
+        // Background Images
+        this.load.image("starfield_0", "assets/backgrounds/starfield_layer-0.png");
+        this.load.image("starfield_1", "assets/backgrounds/starfield_layer-1.png");
+        this.load.image("starfield_2", "assets/backgrounds/starfield_layer-2.png");
+        this.load.image("starfield_3", "assets/backgrounds/starfield_layer-3.png");
 
         // Explosion Animation
         this.load.spritesheet("explosion", "assets/explosion.png", {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
@@ -22,7 +27,12 @@ class Play extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
         // Background
-        this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, "starfield").setOrigin(0,0);
+        this.background = new Array(
+            this.add.tileSprite(0, 0, game.config.width, game.config.height, "starfield_0").setOrigin(0,0),
+            this.add.tileSprite(0, 0, game.config.width, game.config.height, "starfield_1").setOrigin(0,0),
+            this.add.tileSprite(0, 0, game.config.width, game.config.height, "starfield_2").setOrigin(0,0),
+            this.add.tileSprite(0, 0, game.config.width, game.config.height, "starfield_3").setOrigin(0,0),
+        );
 
         // Rockets
         this.p1Rocket = new Rocket(this, game.config.width/2, 431, "rocket").setOrigin(0.5, 0);
@@ -87,8 +97,11 @@ class Play extends Phaser.Scene {
             this.scene.start("menu");
         }
 
-        // Movement
-        this.background.tilePositionX -= 3;
+        // Background movement
+        for(let i = 0; i < this.background.length; i++)
+        {
+            this.background[i].tilePositionX -= i/2 + 1;
+        }
 
         if(!this.endOGame) {
             this.p1Rocket.update();
