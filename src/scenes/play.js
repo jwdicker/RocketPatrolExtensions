@@ -38,11 +38,20 @@ class Play extends Phaser.Scene {
         this.p1Rocket = new Rocket(this, game.config.width / 2, 431, "rocket").setOrigin(0.5, 0);
 
         // Ships
-        this.ships = new Array(
-            new Ship(this, game.config.width + borderUISize * 6, borderUISize * 4, 'spaceship', 0, 30).setOrigin(0, 0),
-            new Ship(this, game.config.width + borderUISize * 3, borderUISize * 5 + borderPadding * 2, 'spaceship', 0, 20).setOrigin(0, 0),
-            new Ship(this, game.config.width, borderUISize * 6 + borderPadding * 4, 'spaceship', 0, 10).setOrigin(0, 0)
-        );
+        /*this.ships = new Array(
+            new Ship(this, game.config.width + borderUISize * 6, borderUISize * 4, 'spaceship', 0, 30, true).setOrigin(0, 0),
+            new Ship(this, -borderUISize * 3, borderUISize * 5 + borderPadding * 2, 'spaceship', 0, 20, false).setOrigin(0, 0),
+            new Ship(this, game.config.width, borderUISize * 6 + borderPadding * 4, 'spaceship', 0, 10, true).setOrigin(0, 0)
+        );*/
+
+        this.ships = new Array();
+        for(let i = 0; i < 3; i++) {
+            if(Math.random() < 0.5) {
+                this.ships.push(new Ship(this, game.config.width + borderUISize * (3 * i), borderUISize * (6 - i) + borderPadding * (4 - (2 * i)), 'spaceship', 0, 30, true).setOrigin(0, 0));
+            } else {
+                this.ships.push(new Ship(this, - borderUISize * (3 * i), borderUISize * (6 - i) + borderPadding * (4 - (2 * i)), 'spaceship', 0, 30, false).setOrigin(0, 0))
+            }
+        }
 
         // UI Borders
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00ff00).setOrigin(0, 0);
