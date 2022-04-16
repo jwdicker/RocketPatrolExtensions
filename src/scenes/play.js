@@ -46,7 +46,7 @@ class Play extends Phaser.Scene {
         this.anims.create({
             key: "shipIdle",
             frames: this.anims.generateFrameNumbers("spaceship", { start: 0, end: 2, first: 0 }),
-            frameRate: 15,
+            frameRate: 10,
             repeat: -1
         });
 
