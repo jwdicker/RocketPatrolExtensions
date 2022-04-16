@@ -6,8 +6,10 @@ class Ship extends Phaser.GameObjects.Sprite {
         this.pointValue = pointValue;
         this.leftMoving = leftMoving;
         if(this.leftMoving) {
+            this.flipX = false;
             this.movementSpeed = game.settings.spaceshipSpeed;
         } else {
+            this.flipX = true;
             this.movementSpeed = -game.settings.spaceshipSpeed;
         }
     }
