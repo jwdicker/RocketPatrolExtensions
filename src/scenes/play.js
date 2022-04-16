@@ -4,9 +4,11 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
-        // Images
+        // Rocket Images
         this.load.image("rocket", "assets/rocket.png");
-        this.load.image("spaceship", "assets/spaceship.png");
+
+        // Spaceship Animation
+        this.load.spritesheet("spaceship", "assets/spaceship.png", { frameWidth: 63, frameHeight: 32, startFrame: 0, endFrame: 2 });
 
         // Background Images
         this.load.image("starfield_0", "assets/backgrounds/starfield_layer-0.png");
@@ -34,22 +36,30 @@ class Play extends Phaser.Scene {
             this.add.tileSprite(0, 0, game.config.width, game.config.height, "starfield_3").setOrigin(0, 0),
         );
 
+        // Animations Setup
+        this.anims.create({
+            key: "explode",
+            frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0 }),
+            frameRate: 30
+        });
+
+        this.anims.create({
+            key: "shipIdle",
+            frames: this.anims.generateFrameNumbers("spaceship", { start: 0, end: 2, first: 0 }),
+            frameRate: 15,
+            repeat: -1
+        });
+
         // Rockets
         this.p1Rocket = new Rocket(this, game.config.width / 2, 431, "rocket").setOrigin(0.5, 0);
 
         // Ships
-        /*this.ships = new Array(
-            new Ship(this, game.config.width + borderUISize * 6, borderUISize * 4, 'spaceship', 0, 30, true).setOrigin(0, 0),
-            new Ship(this, -borderUISize * 3, borderUISize * 5 + borderPadding * 2, 'spaceship', 0, 20, false).setOrigin(0, 0),
-            new Ship(this, game.config.width, borderUISize * 6 + borderPadding * 4, 'spaceship', 0, 10, true).setOrigin(0, 0)
-        );*/
-
         this.ships = new Array();
-        for(let i = 0; i < 3; i++) {
-            if(Math.random() < 0.5) {
-                this.ships.push(new Ship(this, game.config.width + borderUISize * (3 * i), borderUISize * (6 - i) + borderPadding * (4 - (2 * i)), 'spaceship', 0, 30, true).setOrigin(0, 0));
+        for (let i = 0; i < 3; i++) {
+            if (Math.random() < 0.5) {
+                this.ships.push(new Ship(this, game.config.width + borderUISize * (3 * i), borderUISize * (6 - i) + borderPadding * (4 - (2 * i)), 'spaceship', 0, 30, true).setOrigin(0, 0).play("shipIdle"));
             } else {
-                this.ships.push(new Ship(this, - borderUISize * (3 * i), borderUISize * (6 - i) + borderPadding * (4 - (2 * i)), 'spaceship', 0, 30, false).setOrigin(0, 0))
+                this.ships.push(new Ship(this, - borderUISize * (3 * i), borderUISize * (6 - i) + borderPadding * (4 - (2 * i)), 'spaceship', 0, 30, false).setOrigin(0, 0).play("shipIdle"))
             }
         }
 
@@ -60,13 +70,6 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0xffffff).setOrigin(0, 0);
         this.add.rectangle(0, game.config.height - borderUISize, game.config.width, game.config.height, 0xffffff).setOrigin(0, 0);
         this.add.rectangle(game.config.width - borderUISize, 0, game.config.width, game.config.height, 0xffffff).setOrigin(0, 0);
-
-        // Animation Setup
-        this.anims.create({
-            key: "explode",
-            frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0 }),
-            frameRate: 30
-        });
 
         // Keeping Score
         this.p1Score = 0;
