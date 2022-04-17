@@ -17,7 +17,7 @@ class Play extends Phaser.Scene {
         this.load.image("starfield_3", "assets/backgrounds/starfield_layer-3.png");
 
         // Explosion Animation
-        this.load.spritesheet("explosion", "assets/explosion.png", { frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9 });
+        this.load.spritesheet("explosion", "assets/explosion.png", { frameWidth: 63, frameHeight: 32, startFrame: 0, endFrame: 9 });
     }
 
     create() {
@@ -157,6 +157,7 @@ class Play extends Phaser.Scene {
 
         // Play explosion animation
         let boom = this.add.sprite(ship.x, ship.y, "explosion").setOrigin(0, 0);
+        boom.flipX = ship.flipX;
         boom.anims.play('explode');
         boom.on("animationcomplete", () => {
             ship.reset();
