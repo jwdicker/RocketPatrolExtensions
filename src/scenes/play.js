@@ -91,9 +91,9 @@ class Play extends Phaser.Scene {
         this.endOGame = false;
 
         // 60-second play clock
+        this.gameTextConfig.align = 'center';
         this.startTime = this.time.now;
         this.clockText = this.add.text(game.config.width / 2, borderUISize + borderPadding * 2, Math.ceil(game.settings.gameTimer / 1000), this.gameTextConfig).setOrigin(0.5, 0);
-        this.clockText.align = 'center';
         this.maxTime = game.settings.gameTimer;
     }
 
