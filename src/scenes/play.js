@@ -95,10 +95,15 @@ class Play extends Phaser.Scene {
         this.startTime = this.time.now;
         this.clockText = this.add.text(game.config.width / 2, borderUISize + borderPadding * 2, Math.ceil(game.settings.gameTimer / 1000), this.gameTextConfig).setOrigin(0.5, 0);
         this.maxTime = game.settings.gameTimer;
+
+        // Start background music
+        this.soundtrack = this.sound.add("soundtrack", {loop: true});
+        this.soundtrack.play();
     }
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyR)) {
+            this.soundtrack.stop();
             this.scene.restart();
         }
 
@@ -123,6 +128,7 @@ class Play extends Phaser.Scene {
                 this.add.text(game.config.width / 2, game.config.height / 2, 'GAME OVER', this.gameTextConfig).setOrigin(0.5);
                 this.add.text(game.config.width / 2, game.config.height / 2 + 64, 'Press (R) to Restart or ← for Menu', this.gameTextConfig).setOrigin(0.5);
                 this.endOGame = true;
+                this.soundtrack.stop();
             }
         }
 
