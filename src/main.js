@@ -36,6 +36,7 @@
  *
  * Total: 4 * 5 + 4 * 10 + 2 * 20 = 100
  */
+
 const config = {
     type: Phaser.CANVAS,
     width: 640,
