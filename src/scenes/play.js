@@ -159,7 +159,7 @@ class Play extends Phaser.Scene {
         this.maxTime += ship.pointValue * 50;
 
         // Play explosion sound
-        this.sound.play("sfx_explosion");
+        this.sound.play("sfx_explosion", {volume: 0.25});
 
         // Play explosion animation
         let boom = this.add.sprite(ship.x, ship.y, "explosion").setOrigin(0, 0);
