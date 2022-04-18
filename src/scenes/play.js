@@ -128,7 +128,10 @@ class Play extends Phaser.Scene {
                 this.add.text(game.config.width / 2, game.config.height / 2, 'GAME OVER', this.gameTextConfig).setOrigin(0.5);
                 this.add.text(game.config.width / 2, game.config.height / 2 + 64, 'Press (R) to Restart or ← for Menu', this.gameTextConfig).setOrigin(0.5);
                 this.endOGame = true;
+
+                // Stop Movement
                 this.soundtrack.stop();
+                for (let ship of this.ships) { ship.anims.stop() };
             }
         }
 
