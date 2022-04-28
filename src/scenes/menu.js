@@ -16,7 +16,7 @@ class Menu extends Phaser.Scene {
     let titleConfig = {
       fontFamily: 'Impact',
       fontSize: '56px',
-      color: '#F3B141',
+      color: '#FACADE',
       align: 'center',
       fixedWidth: 0
     }
@@ -25,7 +25,7 @@ class Menu extends Phaser.Scene {
       fontFamily: 'DIN Condensed',
       fontSize: '48px',
       backgroundColor: '#F3B141',
-      color: '#000',
+      color: '#FACADE',
       align: 'center',
       padding: {
         top: 5,
