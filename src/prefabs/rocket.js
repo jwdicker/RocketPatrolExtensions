@@ -13,7 +13,7 @@ class Rocket extends Phaser.GameObjects.Sprite {
     }
 
     update() {
-        const movementSpeed = 40;
+        const movementSpeed = 4;
         if(keyLEFT.isDown) {
             this.x -= movementSpeed;
         }
